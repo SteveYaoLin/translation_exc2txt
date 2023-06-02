@@ -1,12 +1,15 @@
 import openpyxl
+import os
 
-def extract_row_elements(filepath, sheetname, row_index, output_filepath):
+def extract_row_elements(filepath, sheetname, row_index, output_filename):
     # 加载Excel文件
     workbook = openpyxl.load_workbook(filepath)
     # 选择工作表
     sheet = workbook[sheetname]
     # 获取指定行的所有单元格
     row = sheet[row_index]
+    # 创建文本文件路径
+    output_filepath = os.path.join(os.path.dirname(filepath), output_filename)
     # 创建文本文件
     with open(output_filepath, 'w') as output_file:
         # 逐个写入每个单元格的值，每个值占据一行
@@ -34,7 +37,7 @@ selected_sheet_name = sheet_names[selected_sheet_index]
 # 获取用户选择的行数
 selected_row_index = int(input("请输入要转换的行数："))
 
-# 指定输出文件路径
-output_filepath = 'path/to/output/file.txt'
+# 指定输出文件名
+output_filename = 'output.txt'
 
-extract_row_elements(excel_filepath, selected_sheet_name, selected_row_index, output_filepath)
+extract_row_elements(excel_filepath, selected_sheet_name, selected_row_index, output_filename)
