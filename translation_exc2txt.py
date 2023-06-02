@@ -15,10 +15,26 @@ def extract_row_elements(filepath, sheetname, row_index, output_filepath):
 
     print("提取完成！")
 
-# 示例用法
-excel_filepath = 'path/to/your/excel/file.xlsx'
-output_filepath = 'path/to/output/file.txt'
-sheet_name = 'Sheet1'
-row_number = 2  # 第2行，索引从1开始
+# 获取用户输入的Excel文件路径
+excel_filepath = input("请输入Excel文件路径：")
+# 加载Excel文件
+workbook = openpyxl.load_workbook(excel_filepath)
+# 获取所有工作表的名称
+sheet_names = workbook.sheetnames
 
-extract_row_elements(excel_filepath, sheet_name, row_number, output_filepath)
+print("备选的工作表：")
+for i, sheet_name in enumerate(sheet_names):
+    print(f"{i+1}. {sheet_name}")
+
+# 获取用户选择的工作表索引
+selected_sheet_index = int(input("请输入要处理的工作表的索引：")) - 1
+# 根据索引获取工作表名称
+selected_sheet_name = sheet_names[selected_sheet_index]
+
+# 获取用户选择的行数
+selected_row_index = int(input("请输入要转换的行数："))
+
+# 指定输出文件路径
+output_filepath = 'path/to/output/file.txt'
+
+extract_row_elements(excel_filepath, selected_sheet_name, selected_row_index, output_filepath)
